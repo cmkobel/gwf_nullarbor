@@ -1,0 +1,5 @@
+.gwf/
+__pycache__/
+input/
+output/
+reference_genomes/
