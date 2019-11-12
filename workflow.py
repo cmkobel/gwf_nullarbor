@@ -29,7 +29,7 @@ inputs = [f for f in os.listdir(INPUT_DIR) if isfile(join(INPUT_DIR, f))]
 
 # Read reference genome and mlst scheme data from each file.
 for file in inputs:
-    print(file)
+    #print(file)
 
     with open(INPUT_DIR + "/" + file, 'r') as raw:
         for line in raw:
@@ -49,7 +49,7 @@ outputs = [d for d in os.listdir(OUTPUT_DIR) if isdir(join(OUTPUT_DIR, d))]
 
 print(f'list of files in {INPUT_DIR}/ :')
 for i in inputs_dicts:
-    print(i['name'], i['reference'], i['mlst'])
+    print(i['name'], i['reference'], i['mlst'], sep = '\t')
 print()
 print(f'list of directories in {OUTPUT_DIR}/ :')
 print(outputs)
@@ -58,18 +58,23 @@ print()
 
 
 
-for input in inputs_dicts:
+for i_, input in enumerate(inputs_dicts):
     #stem = '.'.join(input['name'].split(".")[:-1])
     if input["stem"] in outputs:
-        print(input['name'], 'already exists in output dir')
+        print('Already exists in output dir:', input['stem'], )
     else:
-        print(input['name'], 'does not exist in output dir: job will be initilized:')
+        print('Does not exist in output dir:', input['stem'], 'job will be initialized...')
 
-        subprocess.run(f'source activate nullarbor; nullarbor.pl --check && nullarbor.pl --name {input["name"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+        #subprocess.run(f'source activate nullarbor', shell = True)
+        
+        
 
-    gwf.target_from_template("nullarbor_" + input['stem'], workflow_templates.nullarbor(path = OUTPUT_DIR + "/" + input['stem']))
+        #subprocess.run('export NULLARBOR_CONF="/project/ClinicalMicrobio/faststorage/nullarbor/nullarbor.conf"')
+        subprocess.run(f'nullarbor.pl --check && nullarbor.pl --name {input["name"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+
+    title = 'nb_' + input['stem']
+    gwf.target_from_template(title.replace('-', '_'), workflow_templates.nullarbor(path = OUTPUT_DIR + "/" + input['stem'], stem = input['stem']))
 	
-
 
 
 
