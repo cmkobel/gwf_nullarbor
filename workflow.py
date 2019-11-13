@@ -27,16 +27,18 @@ outputs = list()
 # Read files in input dir
 inputs = [f for f in os.listdir(INPUT_DIR) if isfile(join(INPUT_DIR, f))]
 
-# Read reference genome and mlst scheme data from each file.
+# Read tab files from inputs
+print('reading tab files')
 for file in inputs:
-    #print(file)
+    print(file)
 
     with open(INPUT_DIR + "/" + file, 'r') as raw:
         for line in raw:
             #firstline = line
             if line[0] != "#":
                 raise Exception("Error: lack of comment line in " + file + ".\nComment line should contain reference and mlst. Example:\n# reference.gbk kpneumoniae" )
-            hash, reference, mlst = [i.strip() for i in line.split(' ')]
+            hash, reference, mlst = [i.strip() for i in line.split('\t')]
+            print(hash, reference, mlst)
             break
 
     inputs_dicts.append({'name': file, 'reference': reference, 'mlst': mlst, "stem": '.'.join(file.split(".")[:-1])})
@@ -70,7 +72,9 @@ for i_, input in enumerate(inputs_dicts):
         
 
         #subprocess.run('export NULLARBOR_CONF="/project/ClinicalMicrobio/faststorage/nullarbor/nullarbor.conf"')
-        subprocess.run(f'nullarbor.pl --check && nullarbor.pl --name {input["name"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+
+        subprocess.run(f'nullarbor.pl --check', shell = True, check = True)
+        subprocess.run(f'nullarbor.pl --name {input["name"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
 
     title = 'nb_' + input['stem']
     gwf.target_from_template(title.replace('-', '_'), workflow_templates.nullarbor(path = OUTPUT_DIR + "/" + input['stem'], stem = input['stem']))
