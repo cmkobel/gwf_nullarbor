@@ -1,5 +1,5 @@
 """
-This file has two functions
+This file has two purposes
 	1: Initializes new makefiles from the list of jobs in inputs/
 	2: submits new makefiles to slurm
 """
@@ -74,7 +74,7 @@ for i_, input in enumerate(inputs_dicts):
         #subprocess.run('export NULLARBOR_CONF="/project/ClinicalMicrobio/faststorage/nullarbor/nullarbor.conf"')
 
         subprocess.run(f'nullarbor.pl --check', shell = True, check = True)
-        subprocess.run(f'nullarbor.pl --name {input["name"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+        subprocess.run(f'nullarbor.pl --name {input["stem"]} --mlst {input["mlst"]} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
 
     title = 'nb_' + input['stem']
     gwf.target_from_template(title.replace('-', '_'), workflow_templates.nullarbor(path = OUTPUT_DIR + "/" + input['stem'], stem = input['stem']))
