@@ -1,5 +1,5 @@
 
-def nullarbor(path, stem):
+def nullarbor(path, stem, inputsize):
 
     inputs = [path + "/Makefile", # most important input
               path + "/input.tab",
@@ -21,7 +21,20 @@ def nullarbor(path, stem):
                path + "/mlst.tab",
                path + "/resistome.tab",
                path + "/virulome.tab"]
-    options = {'nodes': 1, 'cores': 8, 'memory': '64g', 'walltime': '06:00:00', 'account': 'clinicalmicrobio'}
+    if inputsize <= 15:
+        ram = 64
+        walltime = '14:00:00'
+    elif inputsize <= 25:
+        ram = 64
+        walltime = '1-05:00:00'
+    elif inputsize <= 60:
+        ram = 150
+        walltime = '2-00:00:00'
+    else:
+        ram = 512
+        walltime = '7-00:00:00'
+
+    options = {'nodes': 1, 'cores': 8, 'memory': str(ram)+'g', 'walltime': walltime, 'account': 'clinicalmicrobio'}
     
     spec = '''
 
@@ -37,15 +50,15 @@ nice make -j 4 -l 12 -C {path}
 
 
 # Reorganize name of report
-# cd {path}
-# jobinfo $SLURM_JOBID >> report/jobinfo.txt
-# cp -r report report_{stem}
-# zip -r report_{stem}.zip report_{stem}/
-# rm -r report_{stem}
+cd {path}
+jobinfo $SLURM_JOBID >> report/jobinfo.txt
+cp -r report report_{stem}
+zip -r report_{stem}.zip report_{stem}/
+rm -r report_{stem}
 
 echo "this far 1"
 # Mail report
-mail -s "nullarbor done {stem}" -a report/index.html kobel@pm.me <<< "$(jobinfo $SLURM_JOBID)"
+mail -s "nullarbor done {stem}" -a report_{stem}.zip kobel@pm.me <<< "$(jobinfo $SLURM_JOBID)"
 
 echo "this far 2"
 # Export the environment
