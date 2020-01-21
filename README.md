@@ -9,12 +9,12 @@ Create a tab-delimited file in inputs with the following specs:
  
 Example:
 ```
-#	kpneumoniae/GCF_240185.gbff	kpneumoniae
-CPO20180025_AMA2216	../CPO20180025_AMA2216_S70_L555_R1_001.fastq.gz	../CPO20180025_AMA2216_S70_L555_R2_001.fastq.gz
-CPO20180077_S88	../CPO20180077_R1_001.fastq.gz	../CPO20180077_R2_001.fastq.gz
-CPO20180080_S80	../CPO20180080_R1_001.fastq.gz	../CPO20180080_R2_001.fastq.gz
-CPO20180087_S43	../CPO20180087_R1_001.fastq.gz	../CPO20180087_R2_001.fastq.gz
-CPO20180152_S1	../CPO20180152_R1_001.fastq.gz	../CPO20180152_R2_001.fastq.gz
+#	kpneumoniae/GCF_000240175.1_ASM24017v2_genomic.gbff	kpneumoniae
+CPO20170025_AMA2316	../CPO20170025_R1_001.fastq.gz	../CPO20170025_R2_001.fastq.gz
+CPO20170077_S76	../CPO20170077_R1_001.fastq.gz	../CPO20170077_R2_001.fastq.gz
+CPO20170070_S78	../CPO20170070_R1_001.fastq.gz	../CPO20170070_R2_001.fastq.gz
+CPO20170077_S33	../CPO20170077_R1_001.fastq.gz	../CPO20170077_R2_001.fastq.gz
+CPO20170152_S2	../CPO20170152_R1_001.fastq.gz	../CPO20170152_R2_001.fastq.gz
 ```
 
 Make sure to have all dependencies installed. Besides all nullarbor dependencies, only gwf-org is necessary.
