@@ -20,15 +20,19 @@ CPO20170152_S2	../CPO20170152_R1_001.fastq.gz	../CPO20170152_R2_001.fastq.gz
 Make sure to have all dependencies installed. Besides all nullarbor dependencies, only gwf-org is necessary.
 
 **1) Initialize batch**
+
 ```gwf status```
+
 This will check that all dependencies are installed, and place the central makefile in an appropriate folder in output/.
 
 **2) Execute batch**
+
 ```gwf run```
+
 This will apply the job list to the cluster.
 
 
-If the *1) Initialize* is skipped, *2) Execute batch ** will automatically do it. 
+If the *1) Initialize* is skipped, *2) Execute batch** will automatically do it. 
 
 
 
