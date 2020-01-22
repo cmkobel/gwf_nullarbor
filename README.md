@@ -36,4 +36,7 @@ This will apply the job list to the cluster.
 If the *1) Initialize* is skipped, *2) Execute batch** will automatically do it. 
 
 
+## Side note
+If you're not able to create hard-links, like nullarbor does when linking contigs, it might be necessary to change the linking command in file `??` to `cp??` instead of `ln ??`
+
 
