@@ -33,7 +33,7 @@ This will check that all dependencies are installed, and place the central makef
 This will apply the job list to the cluster.
 
 
-If the *1) Initialize* is skipped, *2) Execute batch** will automatically do it. 
+If the *1) Initialize* is skipped, *2) Execute batch* will automatically do it. 
 
 
 ## Side note about hardlinking
