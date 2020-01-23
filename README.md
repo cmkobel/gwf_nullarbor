@@ -37,7 +37,7 @@ If the *1) Initialize* is skipped, *2) Execute batch* will automatically do it.
 
 
 ## Side note about hardlinking
-If you're not able to create hard-links, like nullarbor does when linking contigs, it might be necessary to change the linking command in file `nullarbor.pl` from `ln` instead of `cp`:
+If you're not able to create hard-links, like nullarbor does when linking contigs, it might be necessary to change the linking command in file `nullarbor.pl` to `cp` instead of `ln`:
 
 ```
 %.gff : %/contigs.gff
