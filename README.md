@@ -47,6 +47,6 @@ If you're not able to create hard-links, like nullarbor does when linking contig
 
 This workaround is not necessary related to this wrapper, but any system lacking hardlinking capabilities.
 
-There might also be problems relating to the kraken2 classify namespace. These are not sorted out yet.
+There might also be problems relating to the kraken2 classify namespace, or the sambamba version. These are not sorted out yet.
 
 
