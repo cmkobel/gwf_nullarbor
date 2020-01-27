@@ -50,3 +50,4 @@ This workaround is not necessary related to this wrapper, but any system lacking
 There might also be problems relating to the kraken2 classify namespace, or the sambamba version. These are not sorted out yet.
 
 
+TODO: skriv mail ind i gwf objekt.
