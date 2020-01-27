@@ -12,7 +12,7 @@ print("""             _ _            _
 
 
 from gwf import *
-import os, subprocess, workflow_templates
+import os, subprocess, workflow_templates, sys
 from os.path import isfile, isdir, join
 gwf = Workflow()
 
@@ -66,9 +66,9 @@ print()
 for i_, input in enumerate(inputs_dicts):
     #stem = '.'.join(input['name'].split(".")[:-1])
     if input["stem"] in outputs:
-        print('Already exists in output dir:', input['stem'], )
+        print('Already exists in output dir:', input["stem"], )
     else:
-        print(f'Does not exist in output dir: {input['stem']}. Job will be initialized...')
+        print(f'Does not exist in output dir: {input["stem"]}. Job will be initialized...')
 
         #subprocess.run(f'source activate nullarbor', shell = True)
         
@@ -82,7 +82,12 @@ for i_, input in enumerate(inputs_dicts):
         else:
             mlst_string = ' --mlst ' + input['mlst']
         print('mlst string given:', mlst_string)
-        subprocess.run(f'nullarbor.pl --name {input["stem"]}{mlst_string} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+
+        try:
+            subprocess.run(f'nullarbor.pl --name {input["stem"]}{mlst_string} --taxoner kraken --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+        except subprocess.CalledProcessError as e:
+            print(f'\nAn error occured while initializing {input["stem"]}:\n', e)
+            sys.exit()
 
     title = 'nb_' + input['stem']
     gwf.target_from_template(title.replace('-', '_'), workflow_templates.nullarbor(path = OUTPUT_DIR + "/" + input['stem'], stem = input['stem'], inputsize = input['n_lines']))

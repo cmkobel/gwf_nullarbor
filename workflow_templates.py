@@ -21,19 +21,19 @@ def nullarbor(path, stem, inputsize):
                path + "/mlst.tab",
                path + "/resistome.tab",
                path + "/virulome.tab"]
-    if inputsize <= 15:
+    if inputsize <= 30:
         ram = 64
         walltime = '14:00:00'
-    elif inputsize <= 25:
+    elif inputsize <= 50:
         ram = 64
         walltime = '1-05:00:00'
-    elif inputsize <= 60:
-        ram = 150
+    elif inputsize <= 120:
+        ram = 128
         walltime = '2-00:00:00'
     else:
         ram = 512
         walltime = '7-00:00:00'
-
+    print('ram, walltime:', ram, walltime)
     options = {'nodes': 1, 'cores': 8, 'memory': str(ram)+'g', 'walltime': walltime, 'account': 'clinicalmicrobio'}
     
     spec = '''
