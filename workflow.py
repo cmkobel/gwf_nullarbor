@@ -14,7 +14,13 @@ print("""             _ _            _
 from gwf import *
 import os, subprocess, workflow_templates, sys
 from os.path import isfile, isdir, join
-gwf = Workflow()
+
+
+gwf = Workflow(defaults={
+    "mail_user": "kobel@pm.me",
+    "mail_type": "FAIL",
+})
+
 
 ROOT = os.getcwd() + '/'
 INPUT_DIR = "input"
