@@ -90,7 +90,7 @@ for i_, input in enumerate(inputs_dicts):
         print('mlst string given:', mlst_string)
 
         try:
-            subprocess.run(f'nullarbor.pl --name {input["stem"]}{mlst_string} --taxoner kraken --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
+            subprocess.run(f'nullarbor.pl --name {input["stem"]}{mlst_string} --taxoner kraken2 --ref reference_genomes/{input["reference"]} --input input/{input["name"]} --trim --outdir output/{input["stem"]}', shell = True, check = True)
         except subprocess.CalledProcessError as e:
             print(f'\nAn error occured while initializing {input["stem"]}:\n', e)
             sys.exit()
