@@ -51,3 +51,5 @@ There might also be problems relating to the kraken2 classify namespace, or the 
 
 
 TODO: skriv mail ind i gwf objekt.
+TODO: slet reads? de fylder jo meget..
+
