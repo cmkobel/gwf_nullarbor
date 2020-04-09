@@ -44,12 +44,18 @@ for file in inputs:
             if firstline:
                 if line[0] != "#":
                     raise Exception("Error: lack of comment line in " + file + ".\nComment line should contain reference and mlst. Example:\n# reference.gbk kpneumoniae" )
-                hash, reference, mlst = [i.strip() for i in line.split('\t')]
+                try:
+                    hash, reference, mlst = [i.strip() for i in line.split('\t')]
+                except ValueError as e:
+                    print(e)
+                    print('Please make sure that the first line in the input file specifies the reference to use as well as an mlst string.')
+                    exit()
                 firstline = False
             #print(hash, reference, mlst)
             n_lines += 1
     print('number of lines:', n_lines)	
     inputs_dicts.append({'name': file, 'reference': reference, 'mlst': mlst, 'n_lines': n_lines, 'stem': '.'.join(file.split('.')[:-1])})
+
 
 
 print()
