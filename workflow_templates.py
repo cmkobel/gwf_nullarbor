@@ -22,10 +22,10 @@ def nullarbor(path, stem, inputsize):
                path + "/resistome.tab",
                path + "/virulome.tab"]
     if inputsize <= 30:
-        ram = 64
+        ram = 128 #64
         walltime = '14:00:00'
     elif inputsize <= 50:
-        ram = 64
+        ram = 128 #64
         walltime = '1-05:00:00'
     elif inputsize <= 120:
         ram = 128
